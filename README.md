@@ -1,5 +1,5 @@
 # express-react-redux-template
-A basic expres react/redux app. Has examples of async redux actions and middleware.
+A basic expres react/redux app. Has examples of async redux actions, redux middleware and front-end routing.
 No selectors for the time being.
 
 ## Usage

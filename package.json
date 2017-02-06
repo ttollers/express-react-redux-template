@@ -7,7 +7,25 @@
     "dev": "gulp dev",
     "build": "gulp build"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ttollers/express-react-redux-template.git"
+  },
+  "keywords": [
+    "template",
+    "boilerplate",
+    "server",
+    "express",
+    "react",
+    "redux",
+    "react-router",
+    "async-actions"
+  ],
+  "author": "Tom Tollinton",
+  "bugs": {
+    "url": "https://github.com/ttollers/express-react-redux-template"
+  },
+  "homepage": "https://github.com/ttollers/express-react-redux-template",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.21.0",
