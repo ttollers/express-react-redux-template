@@ -1,11 +1,11 @@
 
 import { combineReducers } from 'redux'
-import feed from './feed'
-import towns from './towns'
+import stateA from "./reducerA"
+import stateB from "./reducerB"
 
 const RootReducer = combineReducers({
-  towns,
-  feed
+  stateA,
+  stateB
 });
 
 export default RootReducer
