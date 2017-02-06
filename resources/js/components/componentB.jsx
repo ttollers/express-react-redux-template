@@ -1,11 +1,14 @@
-
 import React from 'react'
+import { Link } from 'react-router';
 
 class ComponentB extends React.Component {
 
   render() {
     return (
-      <p>{this.props.stateB}</p>
+      <div>
+        <p>{this.props.stateB}</p>
+        <p><Link to="/a">Link to A</Link></p>
+      </div>
     )
   }
 

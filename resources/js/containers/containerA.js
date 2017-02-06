@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import ComponentA from "../components/componentA.jsx"
+import { asyncAction, syncAction } from "../actions/example";
 
 const mapStateToProps = state => {
   return {
@@ -7,8 +8,11 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {}
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatchAsyncAction: data => dispatch(asyncAction(data)),
+    dispatchSyncAction: data => dispatch(syncAction(data))
+  }
 };
 
 const ContainerA = connect(

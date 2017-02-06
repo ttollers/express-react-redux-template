@@ -70,7 +70,7 @@
 
 	var _containerA2 = _interopRequireDefault(_containerA);
 
-	var _containerB = __webpack_require__(275);
+	var _containerB = __webpack_require__(276);
 
 	var _containerB2 = _interopRequireDefault(_containerB);
 
@@ -23827,6 +23827,13 @@
 
 
 	  switch (action.type) {
+
+	    case "ASYNC_ON_REQUEST":
+	      return "Loading...";
+	    case "ASYNC_ON_RESPONSE":
+	      return action.data;
+	    case "SYNC_ACTION":
+	      return action.data;
 	    default:
 	      return state;
 	  }
@@ -28791,6 +28798,8 @@
 
 	var _componentA2 = _interopRequireDefault(_componentA);
 
+	var _example = __webpack_require__(275);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var mapStateToProps = function mapStateToProps(state) {
@@ -28800,7 +28809,14 @@
 	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    dispatchAsyncAction: function dispatchAsyncAction(data) {
+	      return dispatch((0, _example.asyncAction)(data));
+	    },
+	    dispatchSyncAction: function dispatchSyncAction(data) {
+	      return dispatch((0, _example.syncAction)(data));
+	    }
+	  };
 	};
 
 	var ContainerA = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentA2.default);
@@ -28823,6 +28839,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(220);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28834,19 +28852,67 @@
 	var ComponentA = function (_React$Component) {
 	  _inherits(ComponentA, _React$Component);
 
-	  function ComponentA() {
+	  function ComponentA(props) {
 	    _classCallCheck(this, ComponentA);
 
-	    return _possibleConstructorReturn(this, (ComponentA.__proto__ || Object.getPrototypeOf(ComponentA)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (ComponentA.__proto__ || Object.getPrototypeOf(ComponentA)).call(this, props));
+
+	    _this.state = { value: '' };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleAsyncSubmit = _this.handleAsyncSubmit.bind(_this);
+	    _this.handleSyncSubmit = _this.handleSyncSubmit.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(ComponentA, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.setState({ value: event.target.value });
+	    }
+	  }, {
+	    key: 'handleAsyncSubmit',
+	    value: function handleAsyncSubmit(event) {
+	      this.props.dispatchAsyncAction(this.state.value);
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: 'handleSyncSubmit',
+	    value: function handleSyncSubmit(event) {
+	      this.props.dispatchSyncAction(this.state.value);
+	      event.preventDefault();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'p',
+	        'div',
 	        null,
-	        this.props.stateA
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.stateA
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/b' },
+	            'Link to B'
+	          )
+	        ),
+	        _react2.default.createElement('input', { onChange: this.handleChange, value: this.state.value }),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.handleAsyncSubmit },
+	          'Async Action'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.handleSyncSubmit },
+	          'Sync Action'
+	        )
 	      );
 	    }
 	  }]);
@@ -28858,6 +28924,39 @@
 
 /***/ },
 /* 275 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.syncAction = syncAction;
+	var asyncAction = exports.asyncAction = function asyncAction(data) {
+
+	  return function (dispatch) {
+	    dispatch({
+	      type: "ASYNC_ON_REQUEST"
+	    });
+
+	    setTimeout(function () {
+	      dispatch({
+	        type: "ASYNC_ON_RESPONSE",
+	        data: data
+	      });
+	    }, 1500);
+	  };
+	};
+
+	function syncAction(data) {
+	  return {
+	    type: "SYNC_ACTION",
+	    data: data
+	  };
+	}
+
+/***/ },
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28868,7 +28967,7 @@
 
 	var _reactRedux = __webpack_require__(179);
 
-	var _componentB = __webpack_require__(276);
+	var _componentB = __webpack_require__(277);
 
 	var _componentB2 = _interopRequireDefault(_componentB);
 
@@ -28889,7 +28988,7 @@
 	exports.default = ContainerB;
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28903,6 +29002,8 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(220);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28925,9 +29026,22 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'p',
+	        'div',
 	        null,
-	        this.props.stateB
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.stateB
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/a' },
+	            'Link to A'
+	          )
+	        )
 	      );
 	    }
 	  }]);

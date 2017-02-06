@@ -1,5 +1,6 @@
-# express-handlebars-template
-A basic template for a project using express with handlebars
+# express-react-redux-template
+A basic expres react/redux app. Has examples of async redux actions and middleware.
+No selectors for the time being.
 
 ## Usage
 ### Install
@@ -8,7 +9,10 @@ A basic template for a project using express with handlebars
 or
 
     yarn
-    
+
+### Compile Front End
+    npm run build
+
 ### Run
     npm start
 With a watcher:
